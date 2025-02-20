@@ -4,8 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
-public class GameBehavior : MonoBehaviour
+using CustomExtensions;
+public class GameBehavior : MonoBehaviour, IManager
 {
     public int MaxItems = 4;
 
@@ -15,11 +15,16 @@ public class GameBehavior : MonoBehaviour
 
     public Button WinButton;
     public Button LossButton;
+    private string _state; 
+    public string State { get { return _state; } set { _state = value; } }
+
 
     void Start()
     {
         ItemText.text += _itemsCollected;
         HealthText.text += _playerHP;
+
+        Initialize();
     }
 
     private int _itemsCollected = 0;
@@ -77,5 +82,13 @@ public class GameBehavior : MonoBehaviour
     {
         ProgressText.text = updatedText;
         Time.timeScale = 0f;
+    }
+
+    public void Initialize()
+    {
+        _state = "Game Manager initialized.."; 
+        // 2
+        _state.FancyDebug();
+        Debug.Log(_state);
     }
 }
